@@ -25,7 +25,7 @@ parser.add_argument('--seed', type=int, default=8, help='Random seed')
 parser.add_argument('--Type',type=str,default='dot', help='score metric')
 parser.add_argument('--flag', type=bool, default=False, help='the identifier whether to conduct causal inference')
 parser.add_argument('--reduction',type=str,default='concate', help='how to integrate multihead attention')
-parser.add_argument('--data_type',type=str,default='PBMC3000', help='choose dataset hESC, Dataset mESC, Dataset PBMC3000, Dataset PBMC9000')
+parser.add_argument('--data_type',type=str,default='PBMC3000', help='choose dataset hESC, dataset mESC, dataset PBMC3000, dataset PBMC4000')
 
 
 args = parser.parse_args()
