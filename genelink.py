@@ -25,7 +25,7 @@ parser.add_argument('--seed', type=int, default=8, help='Random seed')
 parser.add_argument('--Type',type=str,default='dot', help='score metric')
 parser.add_argument('--flag', type=bool, default=False, help='the identifier whether to conduct causal inference')
 parser.add_argument('--reduction',type=str,default='concate', help='how to integrate multihead attention')
-parser.add_argument('--data_type',type=str,default='PBMC', help='choose dataset hESC, Dataset mESC or Dataset PBMC')
+parser.add_argument('--data_type',type=str,default='PBMC3000', help='choose dataset hESC, Dataset mESC, Dataset PBMC3000, Dataset PBMC9000')
 
 
 args = parser.parse_args()
@@ -40,10 +40,13 @@ Non-Specific
 mHSC-L learning rate = 3e-5
 """
 data_type = args.data_type
-if args.data_type=='PBMC':
-    num = 9000
-else:
+if data_type == 'hESC' or data_type == 'mESC':
     num = 1000
+else:
+    letters = "".join(ch for ch in data_type if ch.isalpha())
+    numbers = "".join(ch for ch in data_type if ch.isdigit())
+    data_type = letters
+    num = int(numbers)
 
 
 def embed2file(tf_embed,tg_embed,gene_file,tf_path,target_path):
@@ -61,7 +64,7 @@ def embed2file(tf_embed,tg_embed,gene_file,tf_path,target_path):
 
 
 # density = Network_Statistic(data_type,num,net_type)
-if args.data_type=='PBMC':
+if data_type=='PBMC':
     exp_file = data_type+'/TFs+'+str(num)+'/BL--ExpressionData.csv.gz'
 else:
     exp_file = data_type+'/TFs+'+str(num)+'/BL--ExpressionData.csv'
